@@ -48,19 +48,38 @@ def calculate_bmi(weight: float, height: float) -> float:
     return weight / (height ** 2)
 ```
 
-### 2. Parameters and Arguments
-#### 2.1 Understanding Parameters
-- Parameter definition
-- Argument passing
-- Multiple parameters
-- Parameter types
-- Positional parameters
-- Keyword parameters
-- Default parameters
-- Parameter ordering rules
 
+### 2. Parameters and Arguments
+#### 2.1 Understanding Function Parameters
+- **What are Parameters?**
+  - Parameters are variables defined in a function signature that specify what values (arguments) the function expects when it is called.
+
+- **How Are Arguments Passed?**
+  - Arguments are the actual values or expressions passed to the function when it is called, corresponding to the parameters.
+
+- **Multiple Parameters**
+  - Functions can accept more than one parameter, allowing them to handle multiple values when called.
+
+- **Types of Parameters**
+  - Parameters can be categorized into different types based on how they are used and how values are passed.
+
+- **Positional Parameters**
+  - These parameters must be passed to the function in the order they are defined. The argument values are assigned to the parameters based on their position in the function call.
+
+- **Keyword Parameters**
+  - These parameters are passed to the function by explicitly naming them when calling the function. This allows you to specify the order of the arguments and makes the function call more readable.
+
+- **Default Parameters**
+  - A parameter can have a default value that is used if no argument is provided for that parameter. This allows the function to work with fewer arguments in some cases.
+
+- **Parameter Ordering Rules**
+  - There are specific rules about how parameters should be ordered in the function signature to ensure the correct function behavior. These include:
+    - **Positional-only parameters** must appear before the `/` symbol.
+    - **Parameters that can be passed in any order** (standard parameters) come next.
+    - **Keyword-only parameters** must appear after the `*` symbol.
+
+**Example Function with Ordered Parameters:**
 ```python
-# Parameter ordering
 def function(
     positional_only_params, /,    # Must be passed positionally
     standard_params,              # Can be passed either way
@@ -69,20 +88,32 @@ def function(
     pass
 ```
 
-#### 2.2 Common Parameter Pitfalls
-```python
-# Mutable default arguments trap
-def append_to(element, target=[]):    # WRONG!
-    target.append(element)
-    return target
+#### 2.2 Common Issues with Parameters
+- **Mutable Default Arguments Problem**
+  - **The Issue**: When you use a mutable object (like a list) as a default argument in a function, the default value is shared across function calls. This can lead to unexpected behavior, as changes made to the default value in one call affect future calls.
+  
+  **Incorrect Example**:
+  ```python
+  def append_to(element, target=[]):    # WRONG!
+      target.append(element)
+      return target
+  ```
+  - This function causes issues because the `target` list will persist across calls, and items will accumulate in the list every time the function is called.
 
-# Correct approach
-def append_to(element, target=None):
-    if target is None:
-        target = []
-    target.append(element)
-    return target
-```
+  **Correct Approach**:
+  - Instead of using a mutable default value, use `None` as the default value and create a new list inside the function if needed. This ensures that each function call gets its own separate list.
+  
+  **Corrected Example**:
+  ```python
+  def append_to(element, target=None):
+      if target is None:
+          target = []
+      target.append(element)
+      return target
+  ```
+
+This solution avoids modifying the default argument across calls and guarantees correct behavior.
+
 
 ### 3. Variable Scope and Lifetime
 #### 3.1 Scope Rules (LEGB)

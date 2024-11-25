@@ -1,3 +1,4 @@
+import math
 """
 Python Functions Workshop Exercises
 ---------------------------------
@@ -7,6 +8,7 @@ Each exercise includes detailed documentation and examples of common pitfalls.
 
 # Exercise 1: Basic Function Definition and Documentation
 def greet_user():
+
     """
     Create a function that prints 'Hello, World!'
     
@@ -15,7 +17,9 @@ def greet_user():
     - Confusing print with return
     - Inconsistent indentation
     """
-    pass  # TODO: Implement this function
+  # TODO: Implement this function
+    word = "Hello World"
+    print(word)
   
 
 # Exercise 2: Function Parameters and Type Hints
@@ -38,8 +42,9 @@ def personalized_greeting(name):
         >>> personalized_greeting(123)
         Raises TypeError
     """
-    pass  # TODO: Implement this function
-  
+    # name = input("Enter name")  # TODO: Implement this function
+    print(f"Hello {name}")
+    return name
 
 # Exercise 3: Multiple Parameters and Default Values
 def calculate_rectangle_area(length, width):
@@ -62,9 +67,33 @@ def calculate_rectangle_area(length, width):
     - Not validating parameter types
     - Using mutable default values
     """
-    pass  # TODO: Implement this function
-  
+      # TODO: Implement this function
+    length = input("Length: ")
+    width = input("Width: ")
+    
+    
+    if not length.isnumeric() or not width.isnumeric():
+        raise TypeError("Length and width must be integer")
+    
+    else:
 
+        length = int(length)
+        width = int(width)
+        
+        if length < 0 or width < 0:
+            raise ValueError("Can't have negative length or negative width")
+        
+        area_rec = length * width
+        area_sqr = length ** 2
+        
+        if width == length:
+            print(area_sqr)
+            return area_sqr
+        else:
+            print(area_rec)
+            return area_rec
+        
+    
 # Exercise 4: Global vs Local Scope
 score = 0  # Global variable
 
@@ -83,7 +112,15 @@ def update_score(points):
     - Shadowing global variables
     - Overusing global variables
     """
-    pass  # TODO: Implement this function
+    global score
+    
+    i = 10
+    while i > 5:
+        score += 1
+        points += score
+        i -= 1
+    return points
+      # TODO: Implement this function
   
 
 # Exercise 5: Multiple Return Values and Tuple Unpacking
@@ -102,7 +139,17 @@ def get_circle_properties(radius):
         >>> print(f"Area: {area:.2f}, Circumference: {circumference:.2f}")
         Area: 3.14, Circumference: 6.28
     """
-    pass  # TODO: Implement this function
+     # TODO: Implement this function
+    
+    # Little Error handling implemented because with example input provided, radius will always
+    # be an integer so no need to check for isnumeric??
+    
+    if radius < 0:
+        raise ValueError("Radius cannot be negative")
+    else:
+        area = (2 * math.pi * radius)
+        circumference = math.pi * (radius ** 2)
+        return (area,circumference)
   
 
 # Exercise 6: Input Validation and Error Handling
@@ -121,7 +168,24 @@ def calculate_bmi(weight, height):
         ValueError: If weight or height is negative or zero
         TypeError: If inputs are not numbers
     """
-    pass  # TODO: Implement this function
+  # TODO: Implement this function
+
+    # weight = input("Weight: ")
+    # height = input("Height: ")
+    # ISNUMERIC DOES NOT WORK FOR CHECKING FLOATS< NEED TO USE TRY AND EXCEPT
+
+    try:
+        weight = float(weight)
+        height = float(height)
+    except TypeError:
+        raise TypeError("Weight and HEight must be floats")
+        
+    if weight <= 0 or height <=0:
+        raise ValueError("How are you still alive?")
+    
+    bmi_local = round(weight / (height ** 2) , 1)
+    return bmi_local
+
   
 
 # Exercise 7: Recursion with Base Case and Error Handling
@@ -171,7 +235,35 @@ def analyze_numbers(numbers):
         >>> print(f"Average: {stats['average']}")
         Average: 3.0
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+
+    if not numbers:
+        raise ValueError("List cannot be empty")
+    
+    
+    for item in range(len(numbers)):
+        print(numbers[item])
+        if not numbers[item].isnumeric():
+            raise TypeError("Items in list must be numeric")
+        
+        else:
+            
+            stats_dict = {}
+            
+            numbers[item] += numbers[item + 1]
+            sum = numbers[item]
+            
+            average = len(numbers) / sum
+            max_num = max(numbers)
+            min_num = min(numbers)
+            
+            stats_dict['sum'] = sum
+            stats_dict['average'] = average
+            stats_dict['maximum'] = max_num
+            stats_dict['minimum'] = min_num
+            
+            print(f"Average: {stats_dict['average']}")
+            return stats_dict
   
 
 # Exercise 9: Default Parameters and Type Checking
@@ -239,13 +331,38 @@ def validate_password(password):
 if __name__ == "__main__":
     
     # Example usage of functions
-    print("Testing greet_user():")
-    greet_user()
+    # print("Testing greet_user():")
+    # greet_user()
     
-    print("\nTesting personalized_greeting():")
-    greeting = personalized_greeting("Alice")
-    print(greeting)
+    # print("\nTesting personalized_greeting():")
+    # greeting = personalized_greeting("Alice")
+    # print(greeting)
     
-    print("\nTesting calculate_rectangle_area():")
-    area = calculate_rectangle_area(5, 3)
-    print(f"Rectangle area: {area}")
+    # print("\nTesting calculate_rectangle_area():")
+    # area = calculate_rectangle_area(5, 3)
+    # print(f"Rectangle area: {area}")
+    
+    # print("\nTesting update_score():")
+    # points = update_score(2)
+    # print(f"Points: {points}")
+    
+    # print("\nTesting get_circle_properties():")
+    # props = get_circle_properties(1)
+    # print(f"Area: {props[0]:.2f}, Circumference: {props[1]:.2f}")
+    
+    # print("\nTesting calculate_bmi():")
+    # try:
+    #     weight = input("Weight: ")
+    #     height = input("Height: ")
+    #     bmi = calculate_bmi(weight,height)
+    #     print(f"Bmi: {bmi}")
+    # except Exception as e:
+    #     print(e)
+        
+    print("\nTesting analyzing_numbers:")
+    list_num = list(input("Numbers: "))
+    numbers = analyze_numbers(list_num)
+    
+        
+        
+    

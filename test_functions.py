@@ -2,7 +2,7 @@ import unittest
 import math
 import io
 import sys
-from functions import *
+from exercise import *
 
 class TestFunctions(unittest.TestCase):
     def setUp(self):
@@ -89,7 +89,8 @@ class TestFunctions(unittest.TestCase):
 
 
     def test_calculate_bmi(self):
-       """Test Exercise 6: Input Validation and Error Handling"""
+        """Test Exercise 6: Input Validation and Error Handling"""
+
         # Test normal BMI calculation
         self.assertAlmostEqual(calculate_bmi(70, 1.75), 22.9, places=1)
         self.assertAlmostEqual(calculate_bmi(85, 1.80), 26.2, places=1)

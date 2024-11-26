@@ -318,12 +318,14 @@ def create_profile(name, age, occupation="Student"):
 
     except ValueError:
         pass
-
-
-
-
-
-      # TODO: Implement this function
+    
+    profile_dict['name'] = name
+    profile_dict['age'] = age
+    profile_dict['oocupation'] = occupation
+    
+    print(profile_dict)
+    return profile_dict
+    # TODO: Implement this function
   
 
 # Exercise 10: Complex Logic and Multiple Validation
@@ -365,8 +367,40 @@ def validate_password(password):
     - Not checking all criteria independently
     - Forgetting to validate input type before processing
     """
-    pass  # TODO: Implement this function
-
+      # TODO: Implement this function
+      
+    password = input("Password: ")
+    truth = 0
+    
+    if isinstance(password,int):
+        print("Password must be string")
+        truth -= 1
+    
+    if len(password) < 8:
+        print("Password too short")
+        truth -= 1
+    
+    if not any(char.isnumeric() for char in password):
+        print("Password must have numbers")
+        truth -= 1
+        
+    if password.isalnum():
+        print("Password has no letters")
+        truth -= 1
+            
+    if not any(char.isupper() for char in password):
+        print("No uppercase letters")
+        truth -= 1
+        
+    if not any(char.islower() for char in password):
+        print("No lowercase letters")
+        truth -= 1
+        return truth
+        
+    if truth < 6:
+        return True
+    else:
+        return False
 
 if __name__ == "__main__":
     
@@ -399,13 +433,17 @@ if __name__ == "__main__":
     # except Exception as e:
     #     print(e)
         
-    print("\nTesting analyzing_numbers:")
-    list_num = input("Numbers: ")
-    numbers = analyze_numbers(list_num)
+    # print("\nTesting analyzing_numbers:")
+    # list_num = input("Numbers: ")
+    # numbers = analyze_numbers(list_num)
 
-    print("\nTesting get_circle_properties():")
-    profile = create_profile("Onalerona",19,"Student")
-    print(f"Profile: {profile}")
+    # print("\nTesting create_profile():")
+    # profile = create_profile("Onalerona",19,"Student")
+    # print(f"Profile: {profile}")
+    
+    print("\nTesting password():")
+    password = validate_password("Zwan30n@")
+    print(f"Password: {password}")
 
     
         

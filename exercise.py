@@ -239,7 +239,9 @@ def analyze_numbers(numbers):
 
     numbers_split = numbers.split(",")
     print(numbers_split)
-    
+    max_num = max(numbers_split)
+    min_num = min(numbers_split)
+
     stats_dict = {}
 
     
@@ -247,32 +249,36 @@ def analyze_numbers(numbers):
         raise ValueError("List cannot be empty")
     
     sum_item = 0
+    running_sum = 0
     
     for index,item in enumerate(numbers_split):
-        # print(item)
         if not item.isnumeric():
             raise TypeError("Items in list must be numeric")
         
         item = int(item)
+
+        running_sum += item
         
         if index + 1 < len(numbers_split):
             next_item = int(numbers_split[index + 1])
             item += next_item
-            print(item)
             
-            sum_item = item
+         
+        sum_item = running_sum
             # print(sum_item)
             
     average =  sum_item / len(numbers_split) 
-    max_num = max(numbers)
-    min_num = min(numbers)
+    
     
     stats_dict['sum'] = sum_item
     stats_dict['average'] = average
     stats_dict['maximum'] = max_num
     stats_dict['minimum'] = min_num
+
+    print(stats_dict)
+    print(f"{stats_dict['maximum']}")
     
-    print(f"Average: {stats_dict['average']}")
+    print(f"Average: {stats_dict['maximum']}")
     return stats_dict
   
 

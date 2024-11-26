@@ -237,33 +237,45 @@ def analyze_numbers(numbers):
     """
     # TODO: Implement this function
 
+    numbers_split = numbers.split(",")
+    print(numbers_split)
+    
+    stats_dict = {}
+
+    
     if not numbers:
         raise ValueError("List cannot be empty")
     
+    sum_item = 0
     
-    for item in range(len(numbers)):
-        print(numbers[item])
-        if not numbers[item].isnumeric():
+    for index,item in enumerate(numbers_split):
+        # print(item)
+        if not item.isnumeric():
             raise TypeError("Items in list must be numeric")
         
-        else:
+        item = int(item)
+        
+        if index + 1 < len(numbers_split):
+            next_item = int(numbers_split[index + 1])
+            item += next_item
             
-            stats_dict = {}
+        
+        sum_item = item
+        print(sum_item)
             
-            numbers[item] += numbers[item + 1]
-            sum = numbers[item]
-            
-            average = len(numbers) / sum
-            max_num = max(numbers)
-            min_num = min(numbers)
-            
-            stats_dict['sum'] = sum
-            stats_dict['average'] = average
-            stats_dict['maximum'] = max_num
-            stats_dict['minimum'] = min_num
-            
-            print(f"Average: {stats_dict['average']}")
-            return stats_dict
+            # It's not looping through
+    print(len(numbers_split))
+    average =  sum_item / len(numbers_split) 
+    max_num = max(numbers)
+    min_num = min(numbers)
+    
+    stats_dict['sum'] = sum_item
+    stats_dict['average'] = average
+    stats_dict['maximum'] = max_num
+    stats_dict['minimum'] = min_num
+    
+    print(f"Average: {stats_dict['average']}")
+    return stats_dict
   
 
 # Exercise 9: Default Parameters and Type Checking
@@ -360,8 +372,10 @@ if __name__ == "__main__":
     #     print(e)
         
     print("\nTesting analyzing_numbers:")
-    list_num = list(input("Numbers: "))
+    list_num = input("Numbers: ")
     numbers = analyze_numbers(list_num)
+    # print(f"Average: {stats_dict['average']}")
+
     
         
         

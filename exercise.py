@@ -303,7 +303,27 @@ def create_profile(name, age, occupation="Student"):
         TypeError: If name is not str or age is not int
         ValueError: If age is negative
     """
-    pass  # TODO: Implement this function
+
+    profile_dict = {}
+
+    name = input("Name: ")
+    age = input("Age: ")
+    occupation = input("Occupation: ")
+
+    if not isinstance(name,str):
+        raise TypeError("Name must be in string format")
+    
+    try:
+        age = int(age)
+
+    except ValueError:
+        pass
+
+
+
+
+
+      # TODO: Implement this function
   
 
 # Exercise 10: Complex Logic and Multiple Validation
@@ -382,7 +402,10 @@ if __name__ == "__main__":
     print("\nTesting analyzing_numbers:")
     list_num = input("Numbers: ")
     numbers = analyze_numbers(list_num)
-    # print(f"Average: {stats_dict['average']}")
+
+    print("\nTesting get_circle_properties():")
+    profile = create_profile("Onalerona",19,"Student")
+    print(f"Profile: {profile}")
 
     
         

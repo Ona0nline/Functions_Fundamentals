@@ -239,8 +239,12 @@ def analyze_numbers(numbers):
 
     numbers_split = numbers.split(",")
     print(numbers_split)
-    max_num = max(numbers_split)
-    min_num = min(numbers_split)
+
+    # Items in numbvers_split are not integers therefore max and min will not work.
+    # Oppourtunity to see list comprehension in practice
+    numbers_int_split = [int(num) for num in numbers_split]
+    max_num = max(numbers_int_split)
+    min_num = min(numbers_int_split)
 
     stats_dict = {}
 

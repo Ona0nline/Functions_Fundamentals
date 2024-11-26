@@ -183,7 +183,7 @@ def calculate_bmi(weight, height):
     if weight <= 0 or height <=0:
         raise ValueError("How are you still alive?")
     
-    bmi_local = round(weight / (height ** 2) , 1)
+    bmi_local = round(weight / (height ** 2),1)
     return bmi_local
 
   
@@ -258,13 +258,11 @@ def analyze_numbers(numbers):
         if index + 1 < len(numbers_split):
             next_item = int(numbers_split[index + 1])
             item += next_item
+            print(item)
             
-        
-        sum_item = item
-        print(sum_item)
+            sum_item = item
+            # print(sum_item)
             
-            # It's not looping through
-    print(len(numbers_split))
     average =  sum_item / len(numbers_split) 
     max_num = max(numbers)
     min_num = min(numbers)

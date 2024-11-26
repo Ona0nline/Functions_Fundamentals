@@ -118,7 +118,7 @@ class TestFunctions(unittest.TestCase):
             factorial(-1)
         with self.assertRaises(TypeError):
             factorial(1.5)
-      
+        
 
     def test_analyze_numbers(self):
         """Test Exercise 8: Complex Return Types and Dictionary Handling"""

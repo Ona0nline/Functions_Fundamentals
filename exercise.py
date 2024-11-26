@@ -18,7 +18,7 @@ def greet_user():
     - Inconsistent indentation
     """
   # TODO: Implement this function
-    word = "Hello World"
+    word = "Hello, World!"
     print(word)
   
 
@@ -43,8 +43,10 @@ def personalized_greeting(name):
         Raises TypeError
     """
     # name = input("Enter name")  # TODO: Implement this function
+    if not any(char.isalpha() for char in name):
+        raise TypeError("Must be letters only")
     print(f"Hello {name}")
-    return name
+    return f"Hello, {name}!"
 
 # Exercise 3: Multiple Parameters and Default Values
 def calculate_rectangle_area(length, width):
@@ -208,7 +210,22 @@ def factorial(n):
     - Not handling negative numbers
     - Not considering stack overflow
     """
-    pass  # TODO: Implement this function
+    if not any(char.isnumeric() for char in n):
+        raise TypeError("N must be a numer")
+    
+    original_n = int(n)
+    running_n = original_n
+    if original_n < 0:
+        raise ValueError("N cannot be negative")
+    
+    while original_n > 1:
+        running_n = running_n * (original_n-1)
+        original_n -= 1
+        print(running_n)
+    return running_n
+        
+    
+      # TODO: Implement this function
   
 
 # Exercise 8: Complex Return Types and Dictionary Handling
@@ -433,6 +450,11 @@ if __name__ == "__main__":
     # except Exception as e:
     #     print(e)
         
+    print("\nTesting factorial:")
+    n = input("n: ")
+    factorial_n = factorial(n)
+    print(f"Factorial: {factorial_n}")
+        
     # print("\nTesting analyzing_numbers:")
     # list_num = input("Numbers: ")
     # numbers = analyze_numbers(list_num)
@@ -441,9 +463,9 @@ if __name__ == "__main__":
     # profile = create_profile("Onalerona",19,"Student")
     # print(f"Profile: {profile}")
     
-    print("\nTesting password():")
-    password = validate_password("Zwan30n@")
-    print(f"Password: {password}")
+    # print("\nTesting password():")
+    # password = validate_password("Zwan30n@")
+    # print(f"Password: {password}")
 
     
         

@@ -70,18 +70,12 @@ def calculate_rectangle_area(length, width):
     - Using mutable default values
     """
       # TODO: Implement this function
-    length = input("Length: ")
-    width = input("Width: ")
     
-    
-    if not length.isnumeric() or not width.isnumeric():
+    if isinstance(length,str) or isinstance(width,str):
         raise TypeError("Length and width must be integer")
     
     else:
 
-        length = int(length)
-        width = int(width)
-        
         if length < 0 or width < 0:
             raise ValueError("Can't have negative length or negative width")
         
@@ -116,14 +110,11 @@ def update_score(points):
     """
     global score
     
-    if not points.isnumeric():
-        raise TypeError("Input must be int")
-
-    points = int(points)
-    while True:
-        score = 0
-        score += points
-        return score
+    if isinstance(points,str):
+        raise TypeError("Points should be integer")
+    
+    score += points
+    return score
       # TODO: Implement this function
   
 
@@ -151,8 +142,8 @@ def get_circle_properties(radius):
     if radius < 0:
         raise ValueError("Radius cannot be negative")
     else:
-        area = (2 * math.pi * radius)
-        circumference = math.pi * (radius ** 2)
+        circumference = (2 * math.pi * radius)
+        area = math.pi * (radius ** 2)
         return (area,circumference)
   
 
@@ -179,16 +170,22 @@ def calculate_bmi(weight, height):
     # ISNUMERIC DOES NOT WORK FOR CHECKING FLOATS< NEED TO USE TRY AND EXCEPT
 
     try:
+        if isinstance(weight,str) or isinstance(height,str):
+            raise TypeError("values must be integers")
+
         weight = float(weight)
         height = float(height)
-    except TypeError:
+
+        if weight <= 0 or height <=0:
+            raise ValueError("How are you still alive?")
+
+        bmi_local = round(weight / (height ** 2),1)
+        return bmi_local
+
+    except (TypeError):
         raise TypeError("Weight and HEight must be floats")
         
-    if weight <= 0 or height <=0:
-        raise ValueError("How are you still alive?")
     
-    bmi_local = round(weight / (height ** 2),1)
-    return bmi_local
 
   
 
@@ -212,10 +209,20 @@ def factorial(n):
     - Not handling negative numbers
     - Not considering stack overflow
     """
-    if not any(char.isnumeric() for char in n):
-        raise TypeError("N must be a numer")
-    
+    # if not any(char.isnumeric() for char in n):
+    #     raise TypeError("N must be a numer")
+
+    if isinstance(n,float):
+        raise TypeError("n must be integer")
+
     original_n = int(n)
+
+    if original_n < 0:
+        raise ValueError("n cannot be negative")
+
+    if original_n == 0:
+        return 1
+
     running_n = original_n
     if original_n < 0:
         raise ValueError("N cannot be negative")
@@ -256,14 +263,10 @@ def analyze_numbers(numbers):
     """
     # TODO: Implement this function
 
-    numbers_split = numbers.split(",")
-    print(numbers_split)
-
     # Items in numbvers_split are not integers therefore max and min will not work.
     # Oppourtunity to see list comprehension in practice
-    numbers_int_split = [int(num) for num in numbers_split]
-    max_num = max(numbers_int_split)
-    min_num = min(numbers_int_split)
+    max_num = max(numbers)
+    min_num = min(numbers)
 
     stats_dict = {}
 
@@ -274,23 +277,20 @@ def analyze_numbers(numbers):
     sum_item = 0
     running_sum = 0
     
-    for index,item in enumerate(numbers_split):
-        if not item.isnumeric():
-            raise TypeError("Items in list must be numeric")
-        
+    for index,item in enumerate(numbers):
         item = int(item)
 
         running_sum += item
         
-        if index + 1 < len(numbers_split):
-            next_item = int(numbers_split[index + 1])
+        if index + 1 < len(numbers):
+            next_item = int(numbers[index + 1])
             item += next_item
             
          
         sum_item = running_sum
             # print(sum_item)
             
-    average =  sum_item / len(numbers_split) 
+    average =  sum_item / len(numbers) 
     
     
     stats_dict['sum'] = sum_item
@@ -325,9 +325,15 @@ def create_profile(name, age, occupation="Student"):
 
     profile_dict = {}
 
-    name = input("Name: ")
-    age = input("Age: ")
-    occupation = input("Occupation: ")
+    # name = input("Name: ")
+    # age = input("Age: ")
+    # occupation = input("Occupation: ")
+
+    if isinstance(name,int) or isinstance(age,str):
+        raise TypeError("Name or age of wrong type")
+
+    if age <= 0:
+        raise ValueError("Age cannot be negative")
 
     if not isinstance(name,str):
         raise TypeError("Name must be in string format")
@@ -340,7 +346,7 @@ def create_profile(name, age, occupation="Student"):
     
     profile_dict['name'] = name
     profile_dict['age'] = age
-    profile_dict['oocupation'] = occupation
+    profile_dict['occupation'] = occupation
     
     print(profile_dict)
     return profile_dict
@@ -388,33 +394,43 @@ def validate_password(password):
     """
       # TODO: Implement this function
       
-    password = input("Password: ")
     truth = 0
+
+    if isinstance(password,int):
+        raise TypeError("Incorrect input type")
     
     if isinstance(password,int):
         print("Password must be string")
         truth -= 1
+        return False
+        
     
     if len(password) < 8:
         print("Password too short")
         truth -= 1
+        return False
+    
     
     if not any(char.isnumeric() for char in password):
         print("Password must have numbers")
         truth -= 1
+        return False
         
-    if password.isalnum():
+    if not password.isalnum():
         print("Password has no letters")
         truth -= 1
+        return False
             
     if not any(char.isupper() for char in password):
         print("No uppercase letters")
         truth -= 1
+        return False
         
     if not any(char.islower() for char in password):
         print("No lowercase letters")
         truth -= 1
-        return truth
+        return False
+        
         
     if truth < 6:
         return True
@@ -436,8 +452,7 @@ if __name__ == "__main__":
     # print(f"Rectangle area: {area}")
     
     print("\nTesting update_score():")
-    points_input = input("Points: ")
-    points = update_score(points_input)
+    points = update_score(5)
     print(f"Points: {points}")
     
     # print("\nTesting get_circle_properties():")
@@ -445,13 +460,9 @@ if __name__ == "__main__":
     # print(f"Area: {props[0]:.2f}, Circumference: {props[1]:.2f}")
     
     # print("\nTesting calculate_bmi():")
-    # try:
-    #     weight = input("Weight: ")
-    #     height = input("Height: ")
-    #     bmi = calculate_bmi(weight,height)
-    #     print(f"Bmi: {bmi}")
-    # except Exception as e:
-    #     print(e)
+    # bmi = calculate_bmi(87.6,1.56)
+    # print(f"Bmi: {bmi}")
+   
         
     # print("\nTesting factorial:")
     # n = input("n: ")
@@ -459,15 +470,14 @@ if __name__ == "__main__":
     # print(f"Factorial: {factorial_n}")
         
     # print("\nTesting analyzing_numbers:")
-    # list_num = input("Numbers: ")
-    # numbers = analyze_numbers(list_num)
+    # numbers = analyze_numbers([1,2,3,4,5])
 
     # print("\nTesting create_profile():")
     # profile = create_profile("Onalerona",19,"Student")
     # print(f"Profile: {profile}")
     
     # print("\nTesting password():")
-    # password = validate_password("Zwan30n@")
+    # password = validate_password("Abc12345")
     # print(f"Password: {password}")
 
     

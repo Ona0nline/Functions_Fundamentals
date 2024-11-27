@@ -116,12 +116,14 @@ def update_score(points):
     """
     global score
     
-    i = 10
-    while i > 5:
-        score += 1
-        points += score
-        i -= 1
-    return points
+    if not points.isnumeric():
+        raise TypeError("Input must be int")
+
+    points = int(points)
+    while True:
+        score = 0
+        score += points
+        return score
       # TODO: Implement this function
   
 
@@ -433,9 +435,10 @@ if __name__ == "__main__":
     # area = calculate_rectangle_area(5, 3)
     # print(f"Rectangle area: {area}")
     
-    # print("\nTesting update_score():")
-    # points = update_score(2)
-    # print(f"Points: {points}")
+    print("\nTesting update_score():")
+    points_input = input("Points: ")
+    points = update_score(points_input)
+    print(f"Points: {points}")
     
     # print("\nTesting get_circle_properties():")
     # props = get_circle_properties(1)
@@ -450,10 +453,10 @@ if __name__ == "__main__":
     # except Exception as e:
     #     print(e)
         
-    print("\nTesting factorial:")
-    n = input("n: ")
-    factorial_n = factorial(n)
-    print(f"Factorial: {factorial_n}")
+    # print("\nTesting factorial:")
+    # n = input("n: ")
+    # factorial_n = factorial(n)
+    # print(f"Factorial: {factorial_n}")
         
     # print("\nTesting analyzing_numbers:")
     # list_num = input("Numbers: ")
